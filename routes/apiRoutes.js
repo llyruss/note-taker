@@ -1,4 +1,5 @@
 const fs =require("fs")
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = (app) => {
 
@@ -14,6 +15,8 @@ app.post('/api/notes', (req, res) => {
     const db = JSON.parse(fs.readFileSync('./db/db.json'))
     const note = req.body
 
+    note.id = uuidv4();
+
     db.push(note)
 
     fs.writeFileSync('./db/db.json', JSON.stringify(db))
@@ -24,8 +27,8 @@ app.post('/api/notes', (req, res) => {
 }
 );
 
-app.delete('/api/notes:id', (req, res) => {
+// app.delete('/api/notes:id', (req, res) => {
 
-}
-);
+// }
+// );
 }
